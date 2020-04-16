@@ -5,8 +5,27 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>andserver</title>
   </head>
-  <body>
+  <body :style="{backgroundImage:`url(msg)`}" >
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
+<style>
+  body,html{
+    height:100%;
+    overflow:hidden;
+  }
+  body{
+    background-size: cover;
+  }
+</style>
+<script>
+  export default {
+    data () {
+      return {
+        msg: require('/src/assets/aiwrap.png')
+      }
+    }
+  }
+</script>
 </html>
+
