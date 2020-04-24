@@ -3,14 +3,13 @@
     <div class="message">本地设备监控系统</div>
     <div :style="{backgroundImage:`url(${msg})`}" id="darkbannerwrap"></div>
 
-    <form id="login-form" method="post" onsubmit="return false;">
-      <input id="username" name="username" type="text" placeholder="请输入账号" autocomplete="off">
+    <form id="login-form" onsubmit="return false;">
+      <input id="username" name="username" type="text" placeholder="请输入账号" v-model="username" autocomplete="off">
       <hr class="hr15">
-      <input id="password" name="password" type="password" placeholder="请输入密码"
+      <input id="password" name="password" type="password" v-model="password" placeholder="请输入密码"
              autocomplete="off">
       <hr class="hr15">
-      <button style="width: 100%;" type="submit" id="button_login"
-              >登录</button>
+      <button style="width: 100%;" type="submit" v-on:click="submit" id="button_login" >登录</button>
       <hr class="hr20">
       <span id="info" style="color: red"></span>
     </form>
@@ -18,11 +17,28 @@
 </template>
 
 <script>
+import { required } from 'vuelidate/lib/validators'
 export default {
   name: 'Login',
   data () {
     return {
-      msg: require('../assets/aiwrap.png')
+      msg: require('../assets/aiwrap.png'),
+      username: {
+        required
+      },
+      password: {
+        required
+      }
+    }
+  },
+  methods: {
+    submit(){
+      axios.post('/login',{
+        params:{
+          username:this.username,
+          password:this.password
+        }
+      });
     }
   }
 }
